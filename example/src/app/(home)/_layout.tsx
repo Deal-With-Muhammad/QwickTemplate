@@ -182,6 +182,22 @@ export default function Layout() {
             animationDuration: 300,
           }}
         />
+        <Stack.Screen
+          name="app-ui-4"
+          options={{
+            headerShown: false,
+            animation: 'slide_from_bottom',
+            animationDuration: 300,
+          }}
+        />
+        <Stack.Screen
+          name="app-ui-5"
+          options={{
+            headerShown: false,
+            animation: 'slide_from_bottom',
+            animationDuration: 300,
+          }}
+        />
       </Stack>
       {/* <UpdateBottomSheet
         isOpen={updateSheetOpen}

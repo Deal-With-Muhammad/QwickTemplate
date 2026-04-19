@@ -8,6 +8,7 @@ import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { withUniwind } from 'uniwind';
 import { AppText } from '../../../components/app-text';
+import { QwuikLogo } from '../../../components/qwuik-logo';
 import { useAppTheme } from '../../../contexts/app-theme-context';
 
 const StyledFeather = withUniwind(Feather);
@@ -36,14 +37,7 @@ export default function LoginScreen() {
 
       <View className="flex-1 px-6 justify-center">
         <Animated.View entering={FadeInDown.duration(400)} className="gap-2 mb-10">
-          <View className="flex-row items-center gap-2">
-            <View className="size-10 rounded-2xl bg-[#FFD60A] items-center justify-center">
-              <AppText className="text-black text-xl font-bold">Q</AppText>
-            </View>
-            <AppText className="text-2xl font-bold text-foreground tracking-tight">
-              Qwuik
-            </AppText>
-          </View>
+          <QwuikLogo variant="wordmark" size={140} />
           <AppText
             className="text-3xl font-bold text-foreground mt-6"
             maxFontSizeMultiplier={1.5}

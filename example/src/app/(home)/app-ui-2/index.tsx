@@ -8,6 +8,7 @@ import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { withUniwind } from 'uniwind';
 import { AppText } from '../../../components/app-text';
+import { QwuikLogo } from '../../../components/qwuik-logo';
 
 const StyledFeather = withUniwind(Feather);
 
@@ -40,17 +41,15 @@ export default function LoginScreen() {
         entering={FadeInDown.duration(400)}
         className="px-6 pt-6"
       >
-        <View className="flex-row items-center gap-2">
-          <View className="size-12 rounded-2xl bg-black items-center justify-center">
-            <AppText className="text-[#FFD60A] text-xl font-bold">Q</AppText>
-          </View>
+        <View className="flex-row items-center gap-3">
+          <QwuikLogo variant="icon" size={48} color="#000" />
           <View className="flex-1 h-[2px] bg-black" />
         </View>
         <AppText
           className="text-6xl font-bold text-black mt-6 tracking-tighter"
           maxFontSizeMultiplier={1.3}
         >
-          QWUIK.{'\n'}SELL FAST.
+          SELL FAST.
         </AppText>
         <AppText className="text-sm text-black/70 font-medium mt-2">
           RETAILER POS · B2B ACCESS ONLY

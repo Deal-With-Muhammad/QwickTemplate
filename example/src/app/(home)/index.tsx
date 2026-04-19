@@ -22,7 +22,7 @@ type AppUIProps = {
   subtitle: string;
   tagline: string;
   path: string;
-  accent: 'yellow' | 'dark' | 'outlined';
+  accent: 'yellow' | 'dark' | 'outlined' | 'square' | 'tabs';
 };
 
 const cards: AppUIProps[] = [
@@ -50,6 +50,22 @@ const cards: AppUIProps[] = [
     path: '/app-ui-3',
     accent: 'outlined',
   },
+  {
+    title: 'App UI 4',
+    subtitle: 'Square & Geometric',
+    tagline:
+      'Zero rounded edges. Sharp corners, grid layouts, industrial precision.',
+    path: '/app-ui-4',
+    accent: 'square',
+  },
+  {
+    title: 'App UI 5',
+    subtitle: 'Command Center',
+    tagline:
+      'Persistent tab bar with FAB · accordion checkout · analytics baked in.',
+    path: '/app-ui-5',
+    accent: 'tabs',
+  },
 ];
 
 const AppUICard: FC<AppUIProps & { index: number }> = ({
@@ -65,6 +81,9 @@ const AppUICard: FC<AppUIProps & { index: number }> = ({
 
   const isYellow = accent === 'yellow';
   const isSolidDark = accent === 'dark';
+  const isOutlined = accent === 'outlined';
+  const isSquare = accent === 'square';
+  const isTabs = accent === 'tabs';
 
   return (
     <AnimatedPressable
@@ -78,13 +97,21 @@ const AppUICard: FC<AppUIProps & { index: number }> = ({
           'p-0 overflow-hidden border',
           isYellow && 'bg-[#FFD60A] border-[#FFD60A]',
           isSolidDark &&
-            (isDark
-              ? 'bg-white border-white'
-              : 'bg-black border-black'),
-          accent === 'outlined' &&
+            (isDark ? 'bg-white border-white' : 'bg-black border-black'),
+          isOutlined &&
             (isDark
               ? 'bg-transparent border-white/20'
-              : 'bg-transparent border-black/15')
+              : 'bg-transparent border-black/15'),
+          // Square · hard borders, zero radius
+          isSquare &&
+            (isDark
+              ? 'bg-transparent border-2 border-white rounded-none'
+              : 'bg-transparent border-2 border-black rounded-none'),
+          // Tabs · dual tone with yellow stripe left
+          isTabs &&
+            (isDark
+              ? 'bg-white/5 border-white/10 border-l-4 border-l-[#FFD60A]'
+              : 'bg-black/5 border-black/10 border-l-4 border-l-[#FFD60A]')
         )}
       >
         <View className="p-5 gap-6">
@@ -94,8 +121,10 @@ const AppUICard: FC<AppUIProps & { index: number }> = ({
               className={cn(
                 isYellow && 'bg-black/10',
                 isSolidDark && (isDark ? 'bg-black/10' : 'bg-white/15'),
-                accent === 'outlined' &&
-                  (isDark ? 'bg-white/10' : 'bg-black/5')
+                isOutlined && (isDark ? 'bg-white/10' : 'bg-black/5'),
+                isSquare &&
+                  (isDark ? 'bg-white rounded-none' : 'bg-black rounded-none'),
+                isTabs && 'bg-[#FFD60A]'
               )}
             >
               <Chip.Label
@@ -103,8 +132,9 @@ const AppUICard: FC<AppUIProps & { index: number }> = ({
                   'uppercase tracking-widest text-[10px]',
                   isYellow && 'text-black',
                   isSolidDark && (isDark ? 'text-black' : 'text-white'),
-                  accent === 'outlined' &&
-                    (isDark ? 'text-white' : 'text-black')
+                  isOutlined && (isDark ? 'text-white' : 'text-black'),
+                  isSquare && (isDark ? 'text-black' : 'text-white'),
+                  isTabs && 'text-black'
                 )}
               >
                 {subtitle}
@@ -112,10 +142,13 @@ const AppUICard: FC<AppUIProps & { index: number }> = ({
             </Chip>
             <View
               className={cn(
-                'size-10 rounded-2xl items-center justify-center',
+                'size-10 items-center justify-center',
+                !isSquare && 'rounded-2xl',
                 isYellow && 'bg-black',
                 isSolidDark && (isDark ? 'bg-black' : 'bg-[#FFD60A]'),
-                accent === 'outlined' && 'bg-[#FFD60A]'
+                isOutlined && 'bg-[#FFD60A]',
+                isSquare && 'bg-[#FFD60A]',
+                isTabs && 'bg-foreground'
               )}
             >
               <StyledFeather
@@ -124,7 +157,9 @@ const AppUICard: FC<AppUIProps & { index: number }> = ({
                 className={cn(
                   isYellow && 'text-[#FFD60A]',
                   isSolidDark && (isDark ? 'text-[#FFD60A]' : 'text-black'),
-                  accent === 'outlined' && 'text-black'
+                  isOutlined && 'text-black',
+                  isSquare && 'text-black',
+                  isTabs && 'text-background'
                 )}
               />
             </View>
@@ -136,8 +171,9 @@ const AppUICard: FC<AppUIProps & { index: number }> = ({
                 'text-4xl font-bold tracking-tight',
                 isYellow && 'text-black',
                 isSolidDark && (isDark ? 'text-black' : 'text-white'),
-                accent === 'outlined' &&
-                  (isDark ? 'text-white' : 'text-black')
+                isOutlined && (isDark ? 'text-white' : 'text-black'),
+                isSquare && (isDark ? 'text-white' : 'text-black'),
+                isTabs && 'text-foreground'
               )}
               maxFontSizeMultiplier={1.5}
             >
@@ -148,8 +184,9 @@ const AppUICard: FC<AppUIProps & { index: number }> = ({
                 'text-sm',
                 isYellow && 'text-black/70',
                 isSolidDark && (isDark ? 'text-black/70' : 'text-white/70'),
-                accent === 'outlined' &&
-                  (isDark ? 'text-white/60' : 'text-black/60')
+                isOutlined && (isDark ? 'text-white/60' : 'text-black/60'),
+                isSquare && (isDark ? 'text-white/60' : 'text-black/60'),
+                isTabs && 'text-muted'
               )}
             >
               {tagline}
@@ -161,8 +198,9 @@ const AppUICard: FC<AppUIProps & { index: number }> = ({
               'flex-row items-center gap-2 pt-2 border-t pt-4',
               isYellow && 'border-black/10',
               isSolidDark && (isDark ? 'border-black/10' : 'border-white/15'),
-              accent === 'outlined' &&
-                (isDark ? 'border-white/10' : 'border-black/10')
+              isOutlined && (isDark ? 'border-white/10' : 'border-black/10'),
+              isSquare && (isDark ? 'border-white/20' : 'border-black/20'),
+              isTabs && (isDark ? 'border-white/10' : 'border-black/10')
             )}
           >
             <StyledFeather
@@ -171,8 +209,9 @@ const AppUICard: FC<AppUIProps & { index: number }> = ({
               className={cn(
                 isYellow && 'text-black/80',
                 isSolidDark && (isDark ? 'text-black/80' : 'text-white/80'),
-                accent === 'outlined' &&
-                  (isDark ? 'text-white/80' : 'text-black/80')
+                isOutlined && (isDark ? 'text-white/80' : 'text-black/80'),
+                isSquare && (isDark ? 'text-white/80' : 'text-black/80'),
+                isTabs && 'text-muted'
               )}
             />
             <AppText
@@ -180,8 +219,9 @@ const AppUICard: FC<AppUIProps & { index: number }> = ({
                 'text-xs font-medium',
                 isYellow && 'text-black/80',
                 isSolidDark && (isDark ? 'text-black/80' : 'text-white/80'),
-                accent === 'outlined' &&
-                  (isDark ? 'text-white/80' : 'text-black/80')
+                isOutlined && (isDark ? 'text-white/80' : 'text-black/80'),
+                isSquare && (isDark ? 'text-white/80' : 'text-black/80'),
+                isTabs && 'text-muted'
               )}
             >
               Tap to preview full flow · login → checkout
@@ -213,8 +253,8 @@ export default function App() {
           Pick your Qwuik flavor
         </AppText>
         <AppText className="text-sm text-muted text-center px-6">
-          Three full flows — login, scan, loyalty, checkout, receipt — with
-          different UI personalities.
+          Five full flows — login, scan, loyalty, checkout, receipt — each with
+          its own UI personality and navigation style.
         </AppText>
       </View>
 
