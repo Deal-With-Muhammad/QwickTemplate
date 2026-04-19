@@ -1,0 +1,151 @@
+@layer theme {
+  :root {
+    @variant qwuik-light {
+      --font-normal: 'Inter-Regular';
+      --font-medium: 'Inter-Medium';
+      --font-semibold: 'Inter-SemiBold';
+      --font-bold: 'Inter-Bold';
+
+      --radius: 0.75rem;
+
+      /* Base Colors - Clean white with black text */
+      --background: oklch(100% 0 0);
+      --foreground: oklch(14% 0 0);
+
+      /* Surface */
+      --surface: oklch(100% 0 0);
+      --surface-foreground: oklch(14% 0 0);
+
+      --surface-secondary: oklch(97% 0 0);
+      --surface-secondary-foreground: oklch(14% 0 0);
+
+      --surface-tertiary: oklch(94% 0 0);
+      --surface-tertiary-foreground: oklch(14% 0 0);
+
+      /* Overlay */
+      --overlay: oklch(100% 0 0);
+      --overlay-foreground: oklch(14% 0 0);
+      --backdrop: oklch(0% 0 0 / 40%);
+
+      --muted: oklch(55% 0 0);
+
+      --default: oklch(96% 0 0);
+      --default-foreground: oklch(14% 0 0);
+
+      /* Accent - Signature Qwuik Yellow */
+      --accent: oklch(88% 0.19 100);
+      --accent-foreground: oklch(14% 0 0);
+
+      /* Form Field */
+      --field-background: oklch(98% 0 0);
+      --field-foreground: oklch(14% 0 0);
+      --field-placeholder: var(--muted);
+      --field-border: oklch(92% 0 0);
+
+      /* Status */
+      --success: oklch(65% 0.18 150);
+      --success-foreground: oklch(100% 0 0);
+
+      --warning: oklch(82% 0.17 80);
+      --warning-foreground: oklch(14% 0 0);
+
+      --danger: oklch(62% 0.22 25);
+      --danger-foreground: oklch(100% 0 0);
+
+      /* Component Colors */
+      --segment: oklch(100% 0 0);
+      --segment-foreground: oklch(14% 0 0);
+
+      /* Misc */
+      --border: oklch(92% 0 0);
+      --separator: oklch(88% 0 0);
+      --focus: oklch(88% 0.19 100);
+      --link: oklch(14% 0 0);
+
+      /* Shadows */
+      --surface-shadow:
+        0 2px 4px 0 rgba(0, 0, 0, 0.04), 0 1px 2px 0 rgba(0, 0, 0, 0.06),
+        0 0 1px 0 rgba(0, 0, 0, 0.06);
+      --overlay-shadow:
+        0 2px 8px 0 rgba(0, 0, 0, 0.04), 0 -6px 12px 0 rgba(0, 0, 0, 0.02),
+        0 14px 28px 0 rgba(0, 0, 0, 0.06);
+      --field-shadow:
+        0 2px 4px 0 rgba(0, 0, 0, 0.04), 0 1px 2px 0 rgba(0, 0, 0, 0.06),
+        0 0 1px 0 rgba(0, 0, 0, 0.06);
+    }
+
+    @variant qwuik-dark {
+      --font-normal: 'Inter-Regular';
+      --font-medium: 'Inter-Medium';
+      --font-semibold: 'Inter-SemiBold';
+      --font-bold: 'Inter-Bold';
+
+      --radius: 0.75rem;
+
+      /* Base Colors - Deep black with white text */
+      --background: oklch(8% 0 0);
+      --foreground: oklch(98% 0 0);
+
+      /* Surface */
+      --surface: oklch(14% 0 0);
+      --surface-foreground: oklch(98% 0 0);
+
+      --surface-secondary: oklch(18% 0 0);
+      --surface-secondary-foreground: oklch(98% 0 0);
+
+      --surface-tertiary: oklch(22% 0 0);
+      --surface-tertiary-foreground: oklch(98% 0 0);
+
+      /* Overlay */
+      --overlay: oklch(16% 0 0);
+      --overlay-foreground: oklch(98% 0 0);
+      --backdrop: oklch(0% 0 0 / 60%);
+
+      --muted: oklch(60% 0 0);
+
+      --default: oklch(20% 0 0);
+      --default-foreground: oklch(98% 0 0);
+
+      /* Accent - Signature Qwuik Yellow (brighter on dark) */
+      --accent: oklch(90% 0.195 100);
+      --accent-foreground: oklch(8% 0 0);
+
+      /* Form Field */
+      --field-background: oklch(16% 0 0);
+      --field-foreground: oklch(98% 0 0);
+      --field-placeholder: var(--muted);
+      --field-border: oklch(22% 0 0);
+
+      /* Status */
+      --success: oklch(70% 0.18 150);
+      --success-foreground: oklch(8% 0 0);
+
+      --warning: oklch(85% 0.17 80);
+      --warning-foreground: oklch(8% 0 0);
+
+      --danger: oklch(65% 0.22 25);
+      --danger-foreground: oklch(98% 0 0);
+
+      /* Component Colors */
+      --segment: oklch(16% 0 0);
+      --segment-foreground: oklch(98% 0 0);
+
+      /* Misc */
+      --border: oklch(22% 0 0);
+      --separator: oklch(26% 0 0);
+      --focus: oklch(90% 0.195 100);
+      --link: oklch(98% 0 0);
+
+      /* Shadows */
+      --surface-shadow:
+        0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.3),
+        0 0 1px 0 rgba(0, 0, 0, 0.4);
+      --overlay-shadow:
+        0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 -6px 12px 0 rgba(0, 0, 0, 0.1),
+        0 14px 28px 0 rgba(0, 0, 0, 0.3);
+      --field-shadow:
+        0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.3),
+        0 0 1px 0 rgba(0, 0, 0, 0.4);
+    }
+  }
+}
