@@ -2,10 +2,8 @@ import { isLiquidGlassAvailable } from 'expo-glass-effect';
 import { Stack } from 'expo-router';
 import { useThemeColor, useToast } from 'heroui-native';
 import { useCallback, useEffect, useState } from 'react';
-import { Image, Platform, StyleSheet, View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { useReducedMotion } from 'react-native-reanimated';
-import LogoDark from '../../../assets/logo-dark.png';
-import LogoLight from '../../../assets/logo-light.png';
 import { type UpdateBottomSheetMode } from '../../components/bottom-sheet/update-bottom-sheet';
 import { ThemeToggle } from '../../components/theme-toggle';
 import { useAppTheme } from '../../contexts/app-theme-context';
@@ -67,16 +65,6 @@ export default function Layout() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reducedMotion]);
 
-  const _renderTitle = () => {
-    return (
-      <Image
-        source={isDark ? LogoLight : LogoDark}
-        style={styles.logo}
-        resizeMode="contain"
-      />
-    );
-  };
-
   const _renderThemeToggle = useCallback(() => <ThemeToggle />, []);
 
   return (
@@ -109,7 +97,30 @@ export default function Layout() {
         <Stack.Screen
           name="index"
           options={{
-            headerTitle: _renderTitle,
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="login"
+          options={{
+            headerShown: false,
+            animation: 'fade',
+            animationDuration: 200,
+          }}
+        />
+        <Stack.Screen
+          name="unlock"
+          options={{
+            headerShown: false,
+            animation: 'fade',
+            animationDuration: 200,
+          }}
+        />
+        <Stack.Screen
+          name="settings"
+          options={{
+            headerTitle: 'Settings',
+            presentation: 'card',
           }}
         />
         <Stack.Screen
@@ -190,14 +201,21 @@ export default function Layout() {
             animationDuration: 300,
           }}
         />
-        <Stack.Screen
-          name="app-ui-5"
-          options={{
-            headerShown: false,
-            animation: 'slide_from_bottom',
-            animationDuration: 300,
-          }}
-        />
+        {/*
+          App UI 5 is intentionally disabled — kept on disk under
+          src/app/(home)/app-ui-5/ for future re-enable. Re-add the screen
+          entry below and the variant in src/features/settings/types.ts to
+          surface it again.
+
+          <Stack.Screen
+            name="app-ui-5"
+            options={{
+              headerShown: false,
+              animation: 'slide_from_bottom',
+              animationDuration: 300,
+            }}
+          />
+        */}
       </Stack>
       {/* <UpdateBottomSheet
         isOpen={updateSheetOpen}
@@ -207,10 +225,3 @@ export default function Layout() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  logo: {
-    width: 80,
-    height: 24,
-  },
-});

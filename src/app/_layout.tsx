@@ -35,6 +35,8 @@ import {
 } from 'react-native-keyboard-controller';
 import '../../global.css';
 import { AppThemeProvider } from '../contexts/app-theme-context';
+import { AuthProvider } from '../features/auth/contexts/auth-context';
+import { SettingsProvider } from '../features/settings/contexts/settings-context';
 
 SplashScreen.setOptions({
   duration: 300,
@@ -62,21 +64,25 @@ function AppContent() {
 
   return (
     <AppThemeProvider>
-      <HeroUINativeProvider
-        config={{
-          textProps: {
-            maxFontSizeMultiplier: 2,
-          },
-          toast: {
-            contentWrapper,
-          },
-          devInfo: {
-            stylingPrinciples: false,
-          },
-        }}
-      >
-        <Slot />
-      </HeroUINativeProvider>
+      <SettingsProvider>
+        <AuthProvider>
+          <HeroUINativeProvider
+            config={{
+              textProps: {
+                maxFontSizeMultiplier: 2,
+              },
+              toast: {
+                contentWrapper,
+              },
+              devInfo: {
+                stylingPrinciples: false,
+              },
+            }}
+          >
+            <Slot />
+          </HeroUINativeProvider>
+        </AuthProvider>
+      </SettingsProvider>
     </AppThemeProvider>
   );
 }

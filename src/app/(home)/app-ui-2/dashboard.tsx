@@ -56,10 +56,10 @@ export default function Dashboard() {
             </View>
           </View>
           <Pressable
-            onPress={() => router.back()}
+            onPress={() => router.push('/settings')}
             className="size-11 rounded-2xl bg-foreground items-center justify-center border-2 border-foreground"
           >
-            <StyledFeather name="log-out" size={18} className="text-background" />
+            <StyledFeather name="settings" size={18} className="text-background" />
           </Pressable>
         </Animated.View>
 

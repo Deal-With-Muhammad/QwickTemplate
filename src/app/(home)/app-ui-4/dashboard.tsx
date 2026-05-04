@@ -55,14 +55,14 @@ export default function Dashboard() {
               />
             </Pressable>
             <Pressable
-              onPress={() => router.back()}
+              onPress={() => router.push('/settings')}
               className={cn(
                 'size-10 items-center justify-center border-2 border-l-0',
                 borderCol
               )}
             >
               <StyledFeather
-                name="log-out"
+                name="settings"
                 size={16}
                 className="text-foreground"
               />

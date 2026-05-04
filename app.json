@@ -24,7 +24,11 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.qwuik.android"
+      "package": "com.qwuik.android",
+      "permissions": [
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.USE_FINGERPRINT"
+      ]
     },
     "web": {
       "bundler": "metro"
@@ -43,22 +47,26 @@
           },
           "imageWidth": 220
         }
-      ]
+      ],
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Allow Qwuik to use Face ID to unlock the app."
+        }
+      ],
+      "expo-secure-store"
     ],
     "extra": {
       "router": {
         "origin": false
       },
       "eas": {
-        "projectId": "13560f7b-27d6-41e8-a677-0b4d06705e7e"
+        "projectId": "9a7351e3-6f2d-47fb-b9c7-58fdbf107aab"
       }
     },
-    "owner": "heroui-inc",
     "runtimeVersion": {
       "policy": "appVersion"
     },
-    "updates": {
-      "url": "https://u.expo.dev/13560f7b-27d6-41e8-a677-0b4d06705e7e"
-    }
+    "owner": "deal-with-muhammad"
   }
 }
