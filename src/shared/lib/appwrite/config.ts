@@ -1,3 +1,29 @@
+import { Platform } from 'react-native';
+
+/**
+ * Resolve the platform identifier Appwrite expects. iOS uses the bundle id,
+ * Android uses the application id. Both must be registered as separate
+ * platforms in Appwrite Console → Project → Settings → Platforms.
+ *
+ * Override per-OS via env if needed (rarely necessary):
+ *   EXPO_PUBLIC_APPWRITE_PLATFORM_IOS
+ *   EXPO_PUBLIC_APPWRITE_PLATFORM_ANDROID
+ *   EXPO_PUBLIC_APPWRITE_PLATFORM        (legacy single-value fallback)
+ */
+function resolvePlatform(): string {
+  const fromIos = process.env.EXPO_PUBLIC_APPWRITE_PLATFORM_IOS;
+  const fromAndroid = process.env.EXPO_PUBLIC_APPWRITE_PLATFORM_ANDROID;
+  const legacy = process.env.EXPO_PUBLIC_APPWRITE_PLATFORM;
+
+  return (
+    Platform.select({
+      ios: fromIos ?? legacy ?? 'com.qwuik.app',
+      android: fromAndroid ?? legacy ?? 'com.qwuik.android',
+      default: legacy ?? 'com.qwuik.app',
+    }) ?? 'com.qwuik.app'
+  );
+}
+
 /**
  * Appwrite environment config — read from EXPO_PUBLIC_* env vars.
  * Mirror of the NewAdmin config so both clients hit the same backend.
@@ -7,7 +33,7 @@ export const appwriteConfig = {
     process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT ??
     'https://nyc.cloud.appwrite.io/v1',
   projectId: process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID ?? '',
-  platform: process.env.EXPO_PUBLIC_APPWRITE_PLATFORM ?? 'com.qwuik.app',
+  platform: resolvePlatform(),
   databaseId: process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID ?? 'default',
   collections: {
     users: process.env.EXPO_PUBLIC_APPWRITE_USERS_COLLECTION_ID ?? 'user',

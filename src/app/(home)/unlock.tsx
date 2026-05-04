@@ -5,7 +5,6 @@ import { Button } from 'heroui-native';
 import { useEffect, useRef, useState } from 'react';
 import { Pressable, View } from 'react-native';
 import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { withUniwind } from 'uniwind';
 
 import { AppText } from '../../components/app-text';
@@ -16,6 +15,7 @@ import { useAuth } from '../../features/auth/contexts/auth-context';
 import { useBiometric } from '../../features/auth/hooks/use-biometric';
 import { AuthError } from '../../features/auth/types';
 import { useSettings } from '../../features/settings/contexts/settings-context';
+import { KeyboardSafeScreen } from '../../shared/components/keyboard-safe-screen';
 
 const StyledFeather = withUniwind(Feather);
 
@@ -39,7 +39,6 @@ const LABEL_FOR_KIND = {
  */
 export default function UnlockScreen() {
   const router = useRouter();
-  const insets = useSafeAreaInsets();
   const { isDark } = useAppTheme();
   const { unlock, signOut, signIn, storedEmail } = useAuth();
   const { settings } = useSettings();
@@ -137,9 +136,14 @@ export default function UnlockScreen() {
     <Animated.View
       entering={FadeIn.duration(300)}
       className="flex-1 bg-background"
-      style={{ paddingTop: insets.top + 24, paddingBottom: insets.bottom }}
     >
-      <View className="flex-1 px-6 justify-center">
+      <KeyboardSafeScreen
+        contentContainerStyle={{
+          paddingHorizontal: 24,
+          justifyContent: 'center',
+          paddingTop: 32,
+        }}
+      >
         <Animated.View
           entering={FadeInDown.duration(400)}
           className="items-center mb-10"
@@ -229,7 +233,7 @@ export default function UnlockScreen() {
             <Button.Label>Sign out and forget this device</Button.Label>
           </Button>
         </View>
-      </View>
+      </KeyboardSafeScreen>
 
       <StatusBar style={isDark ? 'light' : 'dark'} />
     </Animated.View>

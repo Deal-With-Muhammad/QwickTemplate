@@ -4,18 +4,20 @@ import { View } from 'react-native';
 
 import { useAuth } from '../../features/auth/contexts/auth-context';
 import { useSettings } from '../../features/settings/contexts/settings-context';
-import { UI_VARIANTS } from '../../features/settings/types';
 
 /**
  * Auth-aware splash. Decides where to send the user based on:
  *   - settings hydration  → wait
- *   - auth status         → /login | /unlock | active variant
+ *   - auth status         → /login | /unlock | /dashboard
  *
- * No UI of its own apart from a centred spinner while we resolve.
+ * The chosen UI variant is NOT part of the URL — every retailer hits
+ * /dashboard, and the variant is resolved at render time inside that screen
+ * (see app/(home)/(pos)/dashboard.tsx + features/pos/variant-resolver.tsx).
+ * That keeps variant switching free of any navigation work.
  */
 export default function HomeIndex() {
   const { status } = useAuth();
-  const { settings, isHydrated } = useSettings();
+  const { isHydrated } = useSettings();
 
   if (!isHydrated || status === 'loading') {
     return (
@@ -33,14 +35,5 @@ export default function HomeIndex() {
     return <Redirect href="/unlock" />;
   }
 
-  const variant = UI_VARIANTS.find((v) => v.id === settings.uiVariant);
-  const target = variant ?? UI_VARIANTS[0];
-
-  if (!target) {
-    // No variants registered — should never happen unless every entry is
-    // commented out in src/features/settings/types.ts.
-    return null;
-  }
-
-  return <Redirect href={`/${target.routeSegment}/dashboard`} />;
+  return <Redirect href="/dashboard" />;
 }

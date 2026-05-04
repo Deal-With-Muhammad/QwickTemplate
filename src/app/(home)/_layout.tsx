@@ -169,53 +169,20 @@ export default function Layout() {
             animationDuration: 300,
           }}
         />
-        <Stack.Screen
-          name="app-ui-1"
-          options={{
-            headerShown: false,
-            animation: 'slide_from_bottom',
-            animationDuration: 300,
-          }}
-        />
-        <Stack.Screen
-          name="app-ui-2"
-          options={{
-            headerShown: false,
-            animation: 'slide_from_bottom',
-            animationDuration: 300,
-          }}
-        />
-        <Stack.Screen
-          name="app-ui-3"
-          options={{
-            headerShown: false,
-            animation: 'slide_from_bottom',
-            animationDuration: 300,
-          }}
-        />
-        <Stack.Screen
-          name="app-ui-4"
-          options={{
-            headerShown: false,
-            animation: 'slide_from_bottom',
-            animationDuration: 300,
-          }}
-        />
         {/*
-          App UI 5 is intentionally disabled — kept on disk under
-          src/app/(home)/app-ui-5/ for future re-enable. Re-add the screen
-          entry below and the variant in src/features/settings/types.ts to
-          surface it again.
+          POS screens live at canonical paths (/dashboard, /scan, /cart,
+          /loyalty, /payment, /receipt) under the (pos) group. The variant
+          components sit OUTSIDE this routes tree at
+          src/features/pos/variants/ui-{1..5}/* — expo-router never sees
+          them. The active variant is resolved at render time via
+          features/pos/variant-resolver.tsx, so switching variants from
+          /settings is a pure context re-render with no navigation cost.
 
-          <Stack.Screen
-            name="app-ui-5"
-            options={{
-              headerShown: false,
-              animation: 'slide_from_bottom',
-              animationDuration: 300,
-            }}
-          />
+          App UI 5 is kept on disk at src/features/pos/variants/ui-5/ but is
+          excluded from the variant list (see features/settings/types.ts)
+          until re-enabled.
         */}
+        <Stack.Screen name="(pos)" options={{ headerShown: false }} />
       </Stack>
       {/* <UpdateBottomSheet
         isOpen={updateSheetOpen}

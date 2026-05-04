@@ -3,7 +3,6 @@ import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { View } from 'react-native';
 import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AppText } from '../../components/app-text';
 import { QwuikLogo } from '../../components/qwuik-logo';
@@ -11,6 +10,7 @@ import { useAppTheme } from '../../contexts/app-theme-context';
 import { LoginForm } from '../../features/auth/components/login-form';
 import { useAuth } from '../../features/auth/contexts/auth-context';
 import { AuthError } from '../../features/auth/types';
+import { KeyboardSafeScreen } from '../../shared/components/keyboard-safe-screen';
 
 /**
  * First-time sign-in screen. Once a user signs in successfully their
@@ -19,7 +19,6 @@ import { AuthError } from '../../features/auth/types';
  */
 export default function LoginScreen() {
   const router = useRouter();
-  const insets = useSafeAreaInsets();
   const { isDark } = useAppTheme();
   const { signIn } = useAuth();
 
@@ -55,9 +54,14 @@ export default function LoginScreen() {
     <Animated.View
       entering={FadeIn.duration(300)}
       className="flex-1 bg-background"
-      style={{ paddingTop: insets.top + 24, paddingBottom: insets.bottom }}
     >
-      <View className="flex-1 px-6 justify-center">
+      <KeyboardSafeScreen
+        contentContainerStyle={{
+          paddingHorizontal: 24,
+          justifyContent: 'center',
+          paddingTop: 32,
+        }}
+      >
         <Animated.View
           entering={FadeInDown.duration(400)}
           className="items-center mb-10"
@@ -85,7 +89,13 @@ export default function LoginScreen() {
             onSubmit={handleSubmit}
           />
         </Animated.View>
-      </View>
+
+        <View className="mt-10">
+          <AppText className="text-center text-xs text-muted">
+            Powered by Qwuik · v1.0.0
+          </AppText>
+        </View>
+      </KeyboardSafeScreen>
 
       <StatusBar style={isDark ? 'light' : 'dark'} />
     </Animated.View>

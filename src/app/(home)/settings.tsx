@@ -22,6 +22,9 @@ export default function SettingsScreen() {
   const biometric = useBiometric();
 
   function handleVariantSelect(id: UiVariant) {
+    // Variant lives entirely in SettingsContext — every screen reads the
+    // active variant via ResolveVariant and re-renders inline. No navigation,
+    // no route remount, no Stack churn. Hot-swap on every device.
     update({ uiVariant: id });
   }
 

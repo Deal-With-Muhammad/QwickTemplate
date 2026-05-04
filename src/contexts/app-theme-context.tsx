@@ -1,4 +1,10 @@
-import React, { createContext, useCallback, useContext, useMemo } from 'react';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+} from 'react';
 import { Uniwind, useUniwind } from 'uniwind';
 
 type ThemeName =
@@ -27,6 +33,14 @@ export const AppThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { theme } = useUniwind();
+
+  // Force light mode on app launch. Without this, uniwind picks up the
+  // device's system color scheme — if the phone is in dark mode the app would
+  // open dark. Users can still flip via the ThemeToggle in the header; the
+  // override only fires once on mount.
+  useEffect(() => {
+    Uniwind.setTheme('light');
+  }, []);
 
   const isLight = useMemo(() => {
     return theme === 'light' || theme.endsWith('-light');

@@ -36,6 +36,7 @@ import {
 import '../../global.css';
 import { AppThemeProvider } from '../contexts/app-theme-context';
 import { AuthProvider } from '../features/auth/contexts/auth-context';
+import { OrderProvider } from '../features/pos/contexts/order-context';
 import { SettingsProvider } from '../features/settings/contexts/settings-context';
 
 SplashScreen.setOptions({
@@ -66,21 +67,23 @@ function AppContent() {
     <AppThemeProvider>
       <SettingsProvider>
         <AuthProvider>
-          <HeroUINativeProvider
-            config={{
-              textProps: {
-                maxFontSizeMultiplier: 2,
-              },
-              toast: {
-                contentWrapper,
-              },
-              devInfo: {
-                stylingPrinciples: false,
-              },
-            }}
-          >
-            <Slot />
-          </HeroUINativeProvider>
+          <OrderProvider>
+            <HeroUINativeProvider
+              config={{
+                textProps: {
+                  maxFontSizeMultiplier: 2,
+                },
+                toast: {
+                  contentWrapper,
+                },
+                devInfo: {
+                  stylingPrinciples: false,
+                },
+              }}
+            >
+              <Slot />
+            </HeroUINativeProvider>
+          </OrderProvider>
         </AuthProvider>
       </SettingsProvider>
     </AppThemeProvider>

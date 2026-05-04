@@ -56,12 +56,30 @@ npm run submit:ios   # build + auto-submit to App Store
 |---|---|
 | First launch (no creds saved) | `/login` — email + password against Appwrite |
 | Successful sign-in | Profile loaded, role checked. **Only `retailer` is allowed**; any other role is rejected. Credentials are saved to SecureStore. |
-| Subsequent launches (creds saved) | `/unlock` — auto-prompt for biometric (Face ID / Touch ID / Fingerprint) |
-| Biometric unavailable or user cancels | Same `/unlock` screen falls back to a password-only form (email is locked to the saved email) |
+| Subsequent launches (creds saved, biometric ON in Settings) | `/unlock` — biometric prompt opens automatically. After success, the existing Appwrite session is reused (no extra round-trip) unless it has expired. |
+| Subsequent launches (creds saved, biometric OFF) | If the Appwrite session is still valid → straight to dashboard. If it expired → `/unlock` with the password form. |
+| Biometric unavailable / cancelled / failed | Same `/unlock` screen falls back to a password-only form (email is locked to the saved email) |
 | `Sign out` from Settings | Clears the Appwrite session **and** SecureStore — next launch is treated as first launch |
+
+The biometric-ON policy is sampled on each fresh launch — toggling the
+Settings switch takes effect on the **next** app launch, not in-place. That
+matches user expectation for a security setting.
 
 There is no sign-up flow in the app — accounts are provisioned by an admin
 through the web admin panel.
+
+### Platform support
+
+| Runtime | Login | Biometric unlock |
+|---|---|---|
+| **Expo Go** | ❌ — `react-native-appwrite` is a native module, not bundled in Expo Go | ❌ — `expo-local-authentication` is a native module |
+| **iOS dev / preview / production build** | ✅ | ✅ (Face ID / Touch ID; the prompt label comes from the `faceIDPermission` we set in `app.json`) |
+| **Android dev / preview / production build** | ✅ | ✅ (Fingerprint / Face Unlock; uses the `USE_BIOMETRIC` + `USE_FINGERPRINT` permissions in `app.json`) |
+| **Web preview** | ✅ (Appwrite over fetch) | ❌ — biometric module is no-op; password fallback is automatic |
+
+In short: **you must use a development build or preview APK to test
+auth/biometric.** Expo Go cannot run this app. See "Run" above —
+`eas build --profile preview --platform android` produces an installable APK.
 
 ## App appearance / UI variants
 
